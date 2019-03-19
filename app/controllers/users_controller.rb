@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+	# rendering (erb :page) should happen from a get request, not from a post, patch or delete request (that's when we use redirect)
+
 	get '/login' do
 		erb :login
 	end
@@ -14,10 +16,19 @@ class UsersController < ApplicationController
 	end
 
 	get '/signup' do
-
+		erb :signup
 	end
 
-	get '/users/:id' do 
-		"user show route"
+	post '/users' do
+		@user = User.new(params)
+		if @user.save
+			redirect "/users/#{@user.id}"
+		end
+	end
+
+	get '/users/:id' do
+		@user = User.find_by(id: params[:id])
+		
+		erb :'/users/show'
 	end
 end
