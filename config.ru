@@ -9,4 +9,5 @@ use Rack::MethodOverride
 
 # this is where we mount all of our controllers with `use`
 use UsersController
+use SnippetsController
 run ApplicationController
